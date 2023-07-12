@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public static class CarsRepository
+    public static class CarsRepository 
     {
         private static IList<Car> _cars;
         static CarsRepository()
