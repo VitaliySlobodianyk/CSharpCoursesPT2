@@ -1,4 +1,5 @@
-﻿using Common.Models;
+﻿using Common.Interfaces;
+using Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ using System.Xml.Linq;
 
 namespace Common
 {
-    public static class PizzaRepository
+    public class PizzaRepository : IDataRepository<Pizza>
     {
-        private static IList<Pizza> _pizzas;
-        static PizzaRepository()
+
+        private static PizzaRepository? _instance;
+
+        private PizzaRepository()
         {
             _pizzas = new List<Pizza>()
             {
@@ -25,29 +28,56 @@ namespace Common
             };
         }
 
-        public static IEnumerable<Pizza> GetPizza()
+        public static PizzaRepository Init()
         {
-            return _pizzas;
+            _instance ??= new PizzaRepository();
+            return _instance;
         }
 
-        public static Pizza GetPizza(int id)
+        private IList<Pizza> _pizzas;
+        public IList<Pizza> Items { get { return _pizzas; } set { } }
+
+        public IList<Pizza> List()
         {
-            return _pizzas.FirstOrDefault(pizza => pizza.Id == id);
+            return Items;
         }
 
-        public static IEnumerable<Pizza> GetByName(string name, IEnumerable<Pizza> pizzas)
+        public Pizza Get(int id)
         {
-            return pizzas.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower()));
+            return Items.FirstOrDefault(pizza => pizza.Id == id);
         }
 
-        public static IEnumerable<Pizza> GetByProducer(string name)
+        public bool Add(Pizza pizza)
         {
-            return _pizzas.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower()));
+            if (pizza.Name != string.Empty && !Items.Any(p => p.Name.Equals(pizza.Name)))
+            {
+                Items.Add(new Pizza(pizza.Name)
+                {
+                    Description = pizza.Description,
+                    Diameter = pizza.Diameter,
+                    WeightGs = pizza.WeightGs,
+                    Ingredients = pizza.Ingredients
+                });
+
+                return true;
+            }
+            return false;
         }
 
-        public static bool UpdatePizza(int id, Pizza pizza)
+        public bool Delete(int id)
         {
-            var pizzaForUpdate = GetPizza(id);
+            var pizzaForDelete = Get(id);
+            if (pizzaForDelete != null)
+            {
+                Items.Remove(pizzaForDelete);
+                return true;
+            }
+            return false;
+        }
+
+        public bool Update(int id, Pizza pizza)
+        {
+            var pizzaForUpdate = Get(id);
             if (pizzaForUpdate != null)
             {
                 pizzaForUpdate.Name = pizza.Name ?? pizzaForUpdate.Name;
@@ -73,25 +103,14 @@ namespace Common
             return false;
         }
 
-        public static void AddPizza(Pizza pizza)
+        public IEnumerable<Pizza> GetByName(string name, IEnumerable<Pizza> pizzas)
         {
-            _pizzas.Add(new Pizza(pizza.Name) {
-             Description = pizza.Description,
-             Diameter = pizza.Diameter,
-             WeightGs = pizza.WeightGs,
-             Ingredients = pizza.Ingredients
-            });
+            return pizzas.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower()));
         }
 
-        public static bool DeletePizza(int id)
+        public IEnumerable<Pizza> GetByProducer(string name)
         {
-            var pizzaForDelete = GetPizza(id);
-            if (pizzaForDelete != null)
-            {
-                _pizzas.Remove(pizzaForDelete);
-                return true;
-            }
-            return false;
+            return Items.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower()));
         }
     }
 }

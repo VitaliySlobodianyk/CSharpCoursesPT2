@@ -11,45 +11,56 @@ namespace Homework1_Additional.Controllers
     [ApiController]
     public class PizzaController : ControllerBase
     {
-        // GET: api/<PizzaController>
+        private PizzaRepository _pizzaRepository;
+        public PizzaController()
+        {
+            _pizzaRepository = PizzaRepository.Init();
+        }
+
+        // GET pizza
         [HttpGet]
         public IEnumerable<Pizza> Get()
         {
-            return PizzaRepository.GetPizza();
+            return _pizzaRepository.List();
         }
 
-        // GET api/<PizzaController>/5
+        // GET pizza/5
         [HttpGet("{id}")]
         public ActionResult<Pizza> Get(int id)
         {
-            var searchedCar = PizzaRepository.GetPizza(id);
+            var searchedCar = _pizzaRepository.Get(id);
             return searchedCar == null ? NotFound() : searchedCar;
         }
 
-        // POST api/<PizzaController>
+        // POST pizza
         [HttpPost]
         public ActionResult Post([FromBody] Pizza pizza)
         {
-            PizzaRepository.AddPizza(pizza);
-            return Ok(); 
+           var success = _pizzaRepository.Add(pizza);
+            if (success)
+            {
+                return Ok();
+            }
+            return Conflict("Pizza with such name is already in the menu! \n Consider update operation!");
         }
 
-        // PUT api/<PizzaController>/5
+        // PUT pizza/5
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Pizza pizza)
         {
-           var success =  PizzaRepository.UpdatePizza(id, pizza);
-            if (success) {
-            return Ok();
+            var success = _pizzaRepository.Update(id, pizza);
+            if (success)
+            {
+                return Ok();
             }
             return NotFound();
         }
 
-        // DELETE api/<PizzaController>/5
+        // DELETE pizza/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var success = PizzaRepository.DeletePizza(id);
+            var success = _pizzaRepository.Delete(id);
             if (success)
             {
                 return Ok();
