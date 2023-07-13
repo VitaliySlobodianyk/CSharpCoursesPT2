@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces.DataManipulation
 {
-    internal interface IUpdatable<T>
+    public interface IUpdatable<T>
     {
         IList<T> Items { get; set; }
         bool Update(int id, T item);

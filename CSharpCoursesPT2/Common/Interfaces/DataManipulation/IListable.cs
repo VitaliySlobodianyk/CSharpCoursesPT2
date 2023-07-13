@@ -8,7 +8,6 @@ namespace Common.Interfaces.DataManipulation
 {
     public interface IListable<T>
     {
-        IList<T> Items { get; set; }
         IList<T> List();
         T Get(int id);
     }

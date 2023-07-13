@@ -7,7 +7,7 @@ using Common.Interfaces.DataManipulation;
 
 namespace Common.Interfaces
 {
-    internal interface IDataRepository<T> : IListable<T>, IAddable<T>, IDeletable<T>, IUpdatable<T>
+    public interface IDataRepository<T> : IListable<T>, IAddable<T>, IDeletable<T>, IUpdatable<T>
     {
     }
 }

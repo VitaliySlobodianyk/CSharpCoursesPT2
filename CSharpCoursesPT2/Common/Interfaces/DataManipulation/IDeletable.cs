@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces.DataManipulation
 {
-    internal interface IDeletable<T>
+    public interface IDeletable<T>
     {
         IList<T> Items { get; set; }
         bool Delete(int id);

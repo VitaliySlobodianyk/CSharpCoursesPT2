@@ -103,14 +103,14 @@ namespace Common
             return false;
         }
 
-        public IEnumerable<Pizza> GetByName(string name, IEnumerable<Pizza> pizzas)
+        public IList<Pizza> GetByName(string name, IList<Pizza> pizzas)
         {
-            return pizzas.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower()));
+            return pizzas.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower())).ToList();
         }
 
-        public IEnumerable<Pizza> GetByProducer(string name)
+        public IList<Pizza> GetByName(string name)
         {
-            return Items.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower()));
+            return Items.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower())).ToList();
         }
     }
 }
