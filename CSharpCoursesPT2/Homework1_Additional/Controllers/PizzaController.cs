@@ -29,8 +29,8 @@ namespace Homework1_Additional.Controllers
         [HttpGet("{id}")]
         public ActionResult<Pizza> Get(int id)
         {
-            var searchedCar = _pizzaRepository.Get(id);
-            return searchedCar == null ? NotFound() : searchedCar;
+            var searchedPizza = _pizzaRepository.Get(id);
+            return searchedPizza == null ? NotFound() : searchedPizza;
         }
 
         // POST pizza
