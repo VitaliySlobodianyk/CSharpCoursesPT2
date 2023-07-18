@@ -12,16 +12,21 @@ namespace Homework1.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
+        private CarsRepository carsRepository;
+        public CarsController() {
+            carsRepository = CarsRepository.Init();
+        }
+
         [HttpGet]
         public IEnumerable<Car> Get()
         {
-            return CarsRepository.GetCars();
+            return carsRepository.GetCars();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Car> Get(int id)
         {
-            var searchedCar = CarsRepository.GetCar(id);
+            var searchedCar = carsRepository.GetCar(id);
             return searchedCar == null ? NotFound() : searchedCar;
         }
 
@@ -32,16 +37,16 @@ namespace Homework1.Controllers
               return BadRequest("Must specify producer or model query parameters");
             }
 
-            var applicableModels = CarsRepository.GetCars();
+            var applicableModels = carsRepository.GetCars();
 
             if (producer != null)
             {
-                applicableModels = CarsRepository.GetByProducer(producer, applicableModels);
+                applicableModels = carsRepository.GetByProducer(producer, applicableModels);
             }
 
             if (model != null)
             {
-                applicableModels = CarsRepository.GetByModel(model, applicableModels);
+                applicableModels = carsRepository.GetByModel(model, applicableModels);
             }
 
             return applicableModels.Any() ?  applicableModels.ToList() : NotFound();

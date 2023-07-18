@@ -1,4 +1,6 @@
-﻿using Common.Models;
+﻿using Common.Interfaces;
+using Common.Interfaces.Items;
+using Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +10,18 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public static class CarsRepository 
+    public class CarsRepository : IManagementCars , IDisplayableList<Car>
     {
-        private static IList<Car> _cars;
-        static CarsRepository()
+        private static CarsRepository? _instance;
+
+        public static CarsRepository Init()
+        {
+            _instance ??= new CarsRepository();
+            return _instance;
+        }
+
+        private IList<Car> _cars;
+        private CarsRepository()
         {
 
             _cars = new List<Car>()
@@ -40,34 +50,93 @@ namespace Common
 
         }
 
-        public static IEnumerable<Car> GetCars()
+        public IEnumerable<Car> GetCars()
         {
             return _cars;
         }
 
-        public static Car GetCar(int id)
+        public Car GetCar(int id)
         {
             return _cars.FirstOrDefault(car => car.Id == id);
         }
 
-        public static IEnumerable<Car> GetByProducer(  string producer, IEnumerable<Car> cars)
+        public IEnumerable<Car> GetByProducer(  string producer, IEnumerable<Car> cars)
         {
             return cars.Where(car => car.Producer.ToLower().Contains(producer.ToLower()));
         }
 
-        public static IEnumerable<Car> GetByProducer(string producer)
+        public IEnumerable<Car> GetByProducer(string producer)
         {
             return _cars.Where(car => car.Producer.ToLower().Contains(producer.ToLower()));
         }
 
-        public static IEnumerable<Car> GetByModel(string model, IEnumerable<Car> cars)
+        public  IEnumerable<Car> GetByModel(string model, IEnumerable<Car> cars)
         {
             return cars.Where(car => car.Model.ToLower().Contains(model.ToLower()));
         }
 
-        public static IEnumerable<Car> GetByModel(string model)
+        public  IEnumerable<Car> GetByModel(string model)
         {
             return _cars.Where(car => car.Model.ToLower().Contains(model.ToLower()));
         }
+
+        public IList<Car> GetCarsByName(string name)
+        {
+            return GetCarsByName(_cars, name);
+        }
+
+        public IList<Car> GetCarsByEnginePower(int power)
+        {
+            return GetCarsByEnginePower(_cars, power);
+        }
+
+        public IList<Car> GetCarsByEngineVolume(double volume)
+        {
+            return GetCarsByEngineVolume(_cars, volume);
+        }
+
+        public IList<Car> GetCarsByAge(int age)
+        {
+            return GetCarsByAge(_cars, age);
+        }
+
+        public IList<Car> GetCarsByName(IList<Car> cars, string name)
+        {
+            return cars.Where(car => car.Producer.ToLower().Contains(name.ToLower()) || car.Model.ToLower().Contains(name.ToLower())).ToList();
+        }
+
+        public IList<Car> GetCarsByEnginePower(IList<Car> cars, int power)
+        {
+            return cars.Where(car => car.EnginePower >= power).ToList();
+        }
+
+        public IList<Car> GetCarsByEngineVolume(IList<Car> cars, double volume)
+        {
+            return cars.Where(car => car.EngineVolume >= volume).ToList();
+        }
+
+        public IList<Car> GetCarsByAge(IList<Car> cars, int age)
+        {
+            return cars.Where(car => car.GetAgeInYears() <= age).ToList();
+        }
+
+        public string PrintHTML()
+        {
+            return PrintHTML(_cars);
+        }
+
+        public string PrintHTML(IList<Car> items)
+        {
+            var res = "<html><ul>";
+
+            foreach (IDisplayableItem car in items)
+            {
+                res += "<li>" + car.PrintHTML() + "</li>";
+            }
+
+            return res + "</ul></html>";
+        }
+
+       
     }
 }
