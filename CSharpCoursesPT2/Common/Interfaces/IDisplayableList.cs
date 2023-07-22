@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    internal interface IDisplayableList<T> where T : IDisplayableItem
+    public interface IDisplayableList<T> where T : IDisplayableItem
     {
         string PrintHTML();
         string PrintHTML(IList<T> items);

@@ -1,4 +1,5 @@
 using Common;
+using Common.Interfaces;
 using Common.Interfaces.Items;
 using Common.Models;
 using Homework2.Middlewares;
@@ -16,9 +17,11 @@ namespace Homework2
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            builder.Services.AddSingleton<IManagementCars, CarsRepository>();
+
             var app = builder.Build();
 
-            app.UseMiddleware<CarSearchManager>();
+            app.UseMiddleware<CarSearchMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    internal interface IManagementCars
+    public interface IManagementCars : IDataRepository<Car>, IDisplayableList<Car>
     {
         IList<Car> GetCarsByName(string name);
         IList<Car> GetCarsByName(IList<Car> cars ,string name);
