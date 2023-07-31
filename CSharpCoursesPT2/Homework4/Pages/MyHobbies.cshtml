@@ -1,0 +1,12 @@
+﻿@page
+@model Homework4.Pages.MyHobbiesModel
+@{
+    ViewData["title"] = "My Hobbies";
+}
+<h2> My hobbies are:</h2>
+<ul>
+    @foreach (var hobby in Model.Hobbies)
+    {
+        <li>@Html.Raw(hobby.PrintHTML())</li>
+    }
+</ul>

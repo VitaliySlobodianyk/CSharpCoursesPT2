@@ -1,0 +1,11 @@
+﻿@page
+@model Homework4.Pages.AboutMeModel
+@{
+    ViewData["title"] = "About Me";
+}
+<div>
+    <h1>Hello my name is @Model.Name, I'm @Model.Age years old.</h1>
+    <p> I'm a @Model.Profession with @Model.Experience years of experience. And here I'd like to share some iformation about me.</p>
+    <p> I have a lot of <a asp-page="/MyHobbies">hobbies</a><i>(no)</i></p>
+</div>
+
