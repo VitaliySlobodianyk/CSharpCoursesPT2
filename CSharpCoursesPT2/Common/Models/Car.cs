@@ -10,19 +10,22 @@ namespace Common.Models
     public class Car : ICountable, IDisplayableItem
     {
         public int Id { get; set; }
-        public string? Producer { get; set; }
-        public string? Model { get; set; }
-        public double EngineVolume { get; set; }
-        public int EnginePower { get; set; }
-        public int MaxSpeed { get; set; }
+
+        public string VIN { get; set; }
+        public string Producer { get; set; }
+        public string Model { get; set; }
+        public double? EngineVolume { get; set; }
+        public int? EnginePower { get; set; }
+        public int? MaxSpeed { get; set; }
 
         public DateTime ProductionDate { get; set; }
 
-        public static int Counter { get; private set; } = 0;
-
+        public Car(string producer, string model, string vin) :this(producer, model)
+        {
+            VIN = vin;
+        }
         public Car(string producer, string model)
         {
-            Id = ++Counter;
             Producer = producer;
             Model = model;
         }

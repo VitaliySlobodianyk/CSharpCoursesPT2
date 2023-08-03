@@ -11,7 +11,5 @@ namespace Common.Interfaces
     {
         string PrintHTML();
         string PrintHTML(IList<T> items);
-
-
     }
 }

@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Homework4.Pages
 {
+
     public class MyHobbiesModel : PageModel
     {
+        [BindProperty]
         public IList<Hobby> Hobbies { get; set; }
         public void OnGet()
         {

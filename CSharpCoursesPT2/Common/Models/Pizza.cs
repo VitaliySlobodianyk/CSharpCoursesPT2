@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    public class Pizza : ICountable
+    public class Pizza : ICountable, IDisplayableItem
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -28,6 +28,11 @@ namespace Common.Models
 
         public Pizza()
         {
+        }
+
+        public string PrintHTML()
+        {
+            throw new NotImplementedException();
         }
     }
 }

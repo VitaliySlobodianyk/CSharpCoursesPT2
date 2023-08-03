@@ -1,0 +1,15 @@
+﻿@page
+@model Homework6.Additional.Pages.CarsModel
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1>Cars:</h1>
+<ul>
+@foreach(var car in Model.CarsRepository.List())
+{
+    <li>
+     @Html.Raw(car.PrintHTML())
+    </li>
+}
+</ul>

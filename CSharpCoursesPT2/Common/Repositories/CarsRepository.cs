@@ -16,37 +16,9 @@ namespace Common
 
         public IList<Car> Items { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public CarsRepository()
+        public CarsRepository(List<Car> cars)
         {
-
-            _cars = new List<Car>()
-            {
-              new Car ("Renault", "Megane"){
-                 EngineVolume = 1.5,
-                 EnginePower= 115,
-                 MaxSpeed = 180,
-                 ProductionDate= new DateTime(2013,12,12)
-              },
-               new Car ("BMW", "335"){
-                 EngineVolume = 3.0,
-                 EnginePower= 360,
-                 MaxSpeed = 280,
-                 ProductionDate= new DateTime(2017,5,3)
-              },
-               new Car ("Volkswagen", "Passat"){
-                 EngineVolume = 2.0,
-                 EnginePower= 140,
-                 MaxSpeed = 220,
-                 ProductionDate= new DateTime(2015,4,12)
-              },
-                new Car ("Toyota", "Camry"){
-                 EngineVolume = 3.5,
-                 EnginePower= 300,
-                 MaxSpeed = 200,
-                 ProductionDate= new DateTime(2008,10,10)
-              }
-            };
-
+            _cars = new List<Car>(cars);
         }
 
         public IEnumerable<Car> GetByProducer(string producer, IEnumerable<Car> cars)

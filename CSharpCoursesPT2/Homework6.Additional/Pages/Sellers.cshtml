@@ -1,0 +1,25 @@
+﻿@page
+@model Homework6.Additional.Pages.SellersModel
+@{
+    ViewData["Owners"] = "Sellers";
+}
+
+<h1>Sellers:</h1>
+<ul>
+    @foreach (var seller in Model.SellersRepository.List())
+    {
+        <li>
+            @Html.Raw(seller.PrintHTML())
+            <h3>Cars:</h3>
+            <ol>
+                @foreach (var car in seller.Cars)
+                {
+                    <li>
+                        <p> @car.Producer  @car.Model </p>
+                        <p> @car.VIN</p>
+                    </li>
+                }
+            </ol>
+        </li>
+    }
+</ul>

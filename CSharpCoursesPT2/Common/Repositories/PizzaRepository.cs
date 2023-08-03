@@ -112,5 +112,15 @@ namespace Common
         {
             return Items.Where(pizza => pizza.Name.ToLower().Contains(name.ToLower())).ToList();
         }
+
+        public string PrintHTML()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string PrintHTML(IList<Pizza> items)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
