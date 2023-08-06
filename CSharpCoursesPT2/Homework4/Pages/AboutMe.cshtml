@@ -3,9 +3,34 @@
 @{
     ViewData["title"] = "About Me";
 }
-<div>
-    <h1>Hello my name is @Model.Name, I'm @Model.Age years old.</h1>
-    <p> I'm a @Model.Profession with @Model.Experience years of experience. And here I'd like to share some iformation about me.</p>
-    <p> I have a lot of <a asp-page="/MyHobbies">hobbies</a><i>(no)</i></p>
+<link rel="stylesheet" href="~/css/homepage.css" asp-append-version="true" />
+<div class="page-content">
+    <h1 >Hello</h1>
+    <p> My name is @Model.Name, I'm @Model.Age years old. I'm a @Model.Profession with @Model.Experience years of experience. And here I'd like to share some iformation about me.</p>
+  
+    <div class="data-row main-buttons">
+        <a asp-page="/AboutMe" class="content-button">About Me</a>
+        <a asp-page="/MyHobbies" class="content-button">My Hobbies</a>
+    </div>
+
+    <div class="data-row">
+        <div class="skill-cell">
+            <img src="./img/simple.png" alt="simple" class="skill-cell-icon" />
+            <p class="skill-cell-description">Simple</p>
+        </div>
+
+        <div class="skill-cell">
+            <img src="./img/no_codng.png" alt="no coding" class="skill-cell-icon" />
+            <p class="skill-cell-description">No Coding</p>
+        </div>
+        <div class="skill-cell">
+            <img src="./img/sites.png" alt="500+ sites" class="skill-cell-icon" />
+            <p class="skill-cell-description">500+ Sites</p>
+        </div>
+        <div class="skill-cell">
+            <img src="./img/gifts.png" alt="gifts" class="skill-cell-icon" />
+            <p class="skill-cell-description">Gifts</p>
+        </div> 
+    </div>
 </div>
 

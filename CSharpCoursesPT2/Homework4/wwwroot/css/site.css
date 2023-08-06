@@ -13,10 +13,20 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+}
+body {
+    background-color: lightblue;
+    background-image: url("../img/triangle-abstract-gradient-soft-gradient-wallpaper-preview.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
-body {
-  margin-bottom: 60px;
+.footer {
+    background-color: white;
+    opacity: 1;
 }
+
+
