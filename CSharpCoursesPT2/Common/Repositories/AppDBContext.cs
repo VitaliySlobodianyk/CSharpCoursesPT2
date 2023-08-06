@@ -2,7 +2,7 @@
 using Common.Models.Persons;
 using Microsoft.EntityFrameworkCore;
 
-namespace Homework6.Additional
+namespace Common
 {
     public class AppDBContext : DbContext 
     {

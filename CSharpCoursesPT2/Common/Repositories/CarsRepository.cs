@@ -1,6 +1,8 @@
 ﻿using Common.Interfaces;
 using Common.Interfaces.Items;
 using Common.Models;
+using Common.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +12,16 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public class CarsRepository : IManagementCars
+    public class CarsRepository : BaseRepository, IManagementCars
     {
         private IList<Car> _cars;
 
-        public IList<Car> Items { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IList<Car> Items { get; set; }
 
-        public CarsRepository(List<Car> cars)
+        public CarsRepository(AppDBContext appDBContext) : base(appDBContext) { }
+        public override async Task DownloadData()
         {
-            _cars = new List<Car>(cars);
+            _cars = await _appDBContext.Cars.ToListAsync();
         }
 
         public IEnumerable<Car> GetByProducer(string producer, IEnumerable<Car> cars)

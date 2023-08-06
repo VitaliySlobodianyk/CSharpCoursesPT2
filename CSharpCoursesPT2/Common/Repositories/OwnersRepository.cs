@@ -1,6 +1,8 @@
 ﻿using Common.Interfaces;
 using Common.Interfaces.Items;
+using Common.Models;
 using Common.Models.Persons;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +11,17 @@ using System.Threading.Tasks;
 
 namespace Common.Repositories
 {
-    public class OwnersRepository : IDataRepository<Owner>
+    public class OwnersRepository : BaseRepository, IDataRepository<Owner>
     {
         private IList<Owner> _owners;
 
-        public IList<Owner> Items { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IList<Owner> Items { get; set; }
 
-        public OwnersRepository(List<Owner> Owners)
+        public OwnersRepository(AppDBContext appDBContext) : base(appDBContext) { }
+      
+        public override async Task DownloadData()
         {
-            _owners = new List<Owner>(Owners);
+            _owners = await _appDBContext.Owners.ToListAsync();
         }
 
         public string PrintHTML()
@@ -44,7 +48,7 @@ namespace Common.Repositories
 
         public Owner Get(int id)
         {
-            return _owners.FirstOrDefault(car => car.Id == id);
+            return _owners.FirstOrDefault(x => x.Id == id);
         }
 
         public bool Add(Owner item)

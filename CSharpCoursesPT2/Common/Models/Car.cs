@@ -10,7 +10,6 @@ namespace Common.Models
     public class Car : ICountable, IDisplayableItem
     {
         public int Id { get; set; }
-
         public string VIN { get; set; }
         public string Producer { get; set; }
         public string Model { get; set; }

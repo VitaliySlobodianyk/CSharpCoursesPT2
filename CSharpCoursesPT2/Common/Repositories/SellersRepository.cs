@@ -2,6 +2,7 @@
 using Common.Interfaces.Items;
 using Common.Models;
 using Common.Models.Persons;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,17 @@ using System.Threading.Tasks;
 
 namespace Common.Repositories
 {
-    public class SellersRepository : IDataRepository<Seller>
+    public class SellersRepository : BaseRepository, IDataRepository<Seller>
     {
         private IList<Seller> _sellers;
 
-        public IList<Seller> Items { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IList<Seller> Items { get; set; }
 
-        public SellersRepository(List<Seller> sellers)
+        public SellersRepository(AppDBContext appDBContext) : base(appDBContext) { }
+
+        public override async Task DownloadData()
         {
-            _sellers = new List<Seller>(sellers);
+            _sellers = await _appDBContext.Sellers.ToListAsync();
         }
 
         public string PrintHTML()

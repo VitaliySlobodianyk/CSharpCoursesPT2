@@ -8,19 +8,16 @@ namespace Homework6.Additional.Pages
 {
     public class OwnersModel : PageModel
     {
-        private AppDBContext _dbContext;
-        
         public OwnersRepository OwnersRepository { get; set; }
 
-
-        public OwnersModel(AppDBContext appDBContext)
+        public OwnersModel( OwnersRepository ownersRepository)
         {
-            _dbContext = appDBContext;
+            OwnersRepository = ownersRepository;
         }
 
         public async Task OnGet()
         {
-            OwnersRepository = new OwnersRepository(await _dbContext.Owners.ToListAsync());
+            await OwnersRepository.DownloadData();
         }
     }
 }

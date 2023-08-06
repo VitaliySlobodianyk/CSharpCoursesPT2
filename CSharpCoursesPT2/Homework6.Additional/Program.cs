@@ -1,5 +1,6 @@
 using Common;
 using Common.Interfaces;
+using Common.Repositories;
 using Homework6.Additional;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<AppDBContext>(); 
+builder.Services.AddDbContext<AppDBContext>();
+
+builder.Services.AddScoped<CarsRepository>();
+builder.Services.AddScoped<OwnersRepository>();
+builder.Services.AddScoped<SellersRepository>();
 
 var app = builder.Build();
 

@@ -16,7 +16,6 @@ namespace Common.Models.Persons
         public string? Email { get; set; }
         public string? Phone { get; set; }
 
-        public static int Counter { get; private set; } = 0;
         public Person(string name)
         {
             Name = name;
@@ -26,6 +25,10 @@ namespace Common.Models.Persons
         {
             return $""" 
             <p>Name: {Name}</p>
+            <p>Birthday: {Birthday}</p>
+            <p>Address: {Address}</p>
+            <p>Email: {Email}</p>
+            <p>Phone: {Phone}</p>
             """;
         }
     }

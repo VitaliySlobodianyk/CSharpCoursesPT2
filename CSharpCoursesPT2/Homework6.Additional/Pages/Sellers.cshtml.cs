@@ -1,3 +1,4 @@
+using Common;
 using Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,17 +8,16 @@ namespace Homework6.Additional.Pages
 {
     public class SellersModel : PageModel
     {
-        private AppDBContext _dbContext;
         public SellersRepository SellersRepository { get; set; }
 
-        public SellersModel(AppDBContext appDBContext)
+        public SellersModel(AppDBContext appDBContext, SellersRepository sellersRepository)
         {
-            _dbContext = appDBContext;
+            SellersRepository = sellersRepository;
         }
 
         public async Task OnGet()
         {
-            SellersRepository = new SellersRepository(await _dbContext.Sellers.ToListAsync());
+            await SellersRepository.DownloadData();
         }
     }
 }
