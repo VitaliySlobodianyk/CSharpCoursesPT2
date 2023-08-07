@@ -1,6 +1,4 @@
-﻿body {
-}
-
+﻿
 .page-content {
     position: relative;
     display: flex;
@@ -8,12 +6,14 @@
     align-items: center;
     padding: 5%;
     color: white;
-    font-family: sans-serif;
+    font-family: 'Segoe UI';
 }
 
 h1 {
-}
 
+    font-size: 3em;
+    letter-spacing: 0.05em;
+}
 
 .data-row {
     width: 100%;
